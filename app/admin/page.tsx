@@ -36,7 +36,6 @@ export default function AdminPage() {
 
     if (sendEmail) {
       console.log("Email trimis către:", msg.email, "cu nota:", note);
-      // Aici se va apela API-ul de Resend ulterior
     }
     setNote("");
     fetchMessages();
@@ -65,6 +64,8 @@ export default function AdminPage() {
             <div key={msg.id} className="p-4 border my-2 flex justify-between items-center rounded-lg bg-muted/20">
               <div>
                 <p className="font-bold">{msg.name}</p>
+                {/* Afișare Email */}
+                <p className="text-xs text-blue-600 font-medium mb-1">{msg.email}</p>
                 <p className="text-sm">{msg.message}</p>
               </div>
               <div className="flex gap-2">
@@ -75,7 +76,7 @@ export default function AdminPage() {
                     <Textarea placeholder="Note rezolvare..." onChange={(e) => setNote(e.target.value)} />
                     <div className="flex items-center gap-2">
                       <Checkbox id="email" onCheckedChange={(c) => setSendEmail(c as boolean)} />
-                      <label htmlFor="email">Trimite email clientului</label>
+                      <label htmlFor="email">Trimite email clientului ({msg.email})</label>
                     </div>
                     <Button onClick={() => handleResolve(msg)}>Confirmă Rezolvarea</Button>
                   </DialogContent>
@@ -91,6 +92,8 @@ export default function AdminPage() {
             <div key={msg.id} className="p-4 border my-2 flex justify-between items-center rounded-lg bg-green-500/10">
               <div>
                 <p className="font-bold">{msg.name} (Rezolvat)</p>
+                {/* Afișare Email */}
+                <p className="text-xs text-blue-600 font-medium mb-1">{msg.email}</p>
                 <p className="text-sm italic">{msg.resolution_note || "Fără notă"}</p>
               </div>
               <Button variant="destructive" onClick={() => deleteMessage(msg.id)}><Trash2 /></Button>
